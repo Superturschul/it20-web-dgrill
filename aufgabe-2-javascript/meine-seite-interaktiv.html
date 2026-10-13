@@ -169,9 +169,9 @@
             <button id="knopf" type="button">Keks-Spruch anzeigen</button>
             <p id="ausgabe" aria-live="polite">Hier erscheint ein Keks-Spruch.</p>
 
-            <h3>Keks-Zähler</h3>
+            <h3>Cookie CLicker</h3>
             <button id="zaehler-knopf" type="button">Keks dazuzählen</button>
-            <p>Gegessene Kekse: <span id="zaehler-ausgabe">0</span></p>
+            <p>Kekse: <span id="zaehler-ausgabe">0</span></p>
 
             <h3>Persönlicher Keks-Gruß</h3>
             <label for="name">Dein Name:</label>
@@ -193,7 +193,7 @@
         // Baustein 1: Ein Klick zeigt einen Keks-Spruch.
         document.querySelector("#knopf").addEventListener("click", () => {
             const ausgabe = document.querySelector("#ausgabe");
-            ausgabe.textContent = "Kekse sind kleine Glücksmomente!";
+            ausgabe.textContent = "Mmmh Kekse";
         });
 
         // Baustein 2: Der Zähler steigt bei jedem Klick um eins.
