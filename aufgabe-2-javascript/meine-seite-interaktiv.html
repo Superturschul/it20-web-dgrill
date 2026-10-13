@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kekse</title>
+    <style>
+        :root {
+            --primary: #614b02;
+            --background: #f2f7fb;
+            --text: #816300;
+            --surface: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            color: var(--text);
+            background: var(--background);
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        header,
+        footer {
+            padding: 24px;
+            color: var(--surface);
+            background: var(--primary);
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            padding: 16px;
+            background: var(--surface);
+        }
+
+        nav a {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        main {
+            width: min(900px, 92%);
+            margin: 32px auto;
+        }
+
+        section {
+            margin-bottom: 32px;
+        }
+
+        .kartenreihe {
+            display: flex;
+            gap: 16px;
+        }
+
+        .karte {
+            flex: 1;
+            padding: 20px;
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            background: var(--surface);
+        }
+
+        .karte img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+        }
+
+        h2 {
+            color: var(--primary);
+        }
+
+        .interaktion input {
+            margin: 4px;
+            padding: 10px;
+            font: inherit;
+        }
+
+        .interaktion button {
+            margin: 4px;
+            padding: 4px 9px;
+            border: 2px outset #c5b77b;
+            background: #eee8cc;
+            color: #4b3900;
+            font-family: "Courier New", monospace;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .interaktion button:active {
+            border-style: inset;
+        }
+
+        .interaktion button:focus-visible {
+            outline: 2px dotted var(--primary);
+            outline-offset: 2px;
+        }
+
+        .versteckt {
+            display: none;
+        }
+
+        @media (max-width: 700px) {
+            .kartenreihe {
+                flex-direction: column;
+            }
+
+            nav {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Kekse</h1>
+        <p>Kekse sind cool</p>
+    </header>
+
+    <nav aria-label="Hauptnavigation">
+        <a href="#kekse">Über Kekse</a>
+        <a href="#sorten">Meine Lieblingssorten</a>
+    </nav>
+
+    <main>
+        <section id="kekse">
+            <h2>Warum ich Kekse mag</h2>
+            <p>
+                Kekse sind sehr lecker und es gibt viele verschiedene Arten. Ich finde
+                fast alle Kekssorten gut, aber besonders mag ich Oreokekse und
+                Schokoladenkekse. Am wenigsten mag ich Butterkekse. Ich esse Kekse oft
+                allein oder mit Freunden und Familie. Besonders gerne mag ich auch Texte über Kekse.
+                Sie sind immer sinnvoll und amüsant.
+            </p>
+            <div class="kartenreihe">
+                <article class="karte">
+                    <h3>Meine Lieblingssorten</h3>
+                    <ul>
+                        <li>Oreokekse</li>
+                        <li>Schokoladenkekse</li>
+                        <li>Vanillekekse</li>
+                    </ul>
+                </article>
+                <article class="karte">
+                    <h3>Schokoladenkekse</h3>
+                    <img
+                        src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&amp;fit=crop&amp;w=900&amp;q=80"
+                        alt="Frisch gebackene Schokoladenkekse auf einem Teller"
+                    >
+                </article>
+            </div>
+        </section>
+
+        <section id="sorten">
+            <h2>Meine Lieblingssorten</h2>
+            <p>Oreokekse und Schokoladenkekse esse ich besonders gerne, am liebsten mit Freunden oder Familie.</p>
+        </section>
+
+        <section class="interaktion" aria-labelledby="interaktion-titel">
+            <h2 id="interaktion-titel">Keks-Ecke zum Ausprobieren</h2>
+            <button id="knopf" type="button">Keks-Spruch anzeigen</button>
+            <p id="ausgabe" aria-live="polite">Hier erscheint ein Keks-Spruch.</p>
+
+            <h3>Keks-Zähler</h3>
+            <button id="zaehler-knopf" type="button">Keks dazuzählen</button>
+            <p>Gegessene Kekse: <span id="zaehler-ausgabe">0</span></p>
+
+            <h3>Persönlicher Keks-Gruß</h3>
+            <label for="name">Dein Name:</label>
+            <input id="name" type="text" autocomplete="given-name">
+            <button id="gruss-knopf" type="button">Gruß anzeigen</button>
+            <p id="gruss-ausgabe" aria-live="polite"></p>
+
+            <h3>Geheimtipp</h3>
+            <button id="tipp-knopf" type="button" aria-controls="keks-tipp">Tipp ein- oder ausblenden</button>
+            <p id="keks-tipp">Ein Keks schmeckt besonders gut, wenn man ihn teilt!</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Kekse schmecken einfach gut!</p>
+    </footer>
+
+    <script>
+        // Baustein 1: Ein Klick zeigt einen Keks-Spruch.
+        document.querySelector("#knopf").addEventListener("click", () => {
+            const ausgabe = document.querySelector("#ausgabe");
+            ausgabe.textContent = "Kekse sind kleine Glücksmomente!";
+        });
+
+        // Baustein 2: Der Zähler steigt bei jedem Klick um eins.
+        let zaehler = 0;
+        document.querySelector("#zaehler-knopf").addEventListener("click", () => {
+            zaehler += 1;
+            document.querySelector("#zaehler-ausgabe").textContent = zaehler;
+        });
+
+        // Baustein 3: Der eingegebene Name wird für einen persönlichen Gruß verwendet.
+        document.querySelector("#gruss-knopf").addEventListener("click", () => {
+            const name = document.querySelector("#name").value.trim();
+            const grussAusgabe = document.querySelector("#gruss-ausgabe");
+            grussAusgabe.textContent = name
+                ? `Hallo, ${name}! Möchtest du einen Keks?`
+                : "Bitte gib zuerst deinen Namen ein.";
+        });
+
+        // Baustein 4: Der Keks-Tipp wird mit der CSS-Klasse ein- und ausgeblendet.
+        document.querySelector("#tipp-knopf").addEventListener("click", () => {
+            document.querySelector("#keks-tipp").classList.toggle("versteckt");
+        });
+    </script>
+</body>
+</html>
